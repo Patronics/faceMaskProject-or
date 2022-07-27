@@ -12,6 +12,10 @@ eyesCascade = cv2.CascadeClassifier(cascPathEyes)
 
 
 ##### TODO: modify to use facemarks based on this tutorial: https://pysource.com/2019/03/25/pigs-nose-instagram-face-filter-opencv-with-python/
+##### TODO: align video output projection with input view inspired by this tutorial: https://learnopencv.com/image-alignment-feature-based-using-opencv-c-python/
+
+qrCodeDetector = cv2.QRCodeDetector()
+
 
 
 video_capture = cv2.VideoCapture(0)
