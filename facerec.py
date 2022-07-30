@@ -1,5 +1,6 @@
 import cv2
 import os
+import numpy as np
 #cascPath = os.path.dirname(
 #    cv2.__file__) + "/data/haarcascade_frontalface_alt2.xml"
 cascPath = os.path.dirname(
@@ -19,6 +20,9 @@ eyesCascade = cv2.CascadeClassifier(cascPathEyes)
 
 
 video_capture = cv2.VideoCapture(0)
+ret, frame = video_capture.read()
+vidh, vidw, vidchannels = frame.shape
+print (f"using image of shape {vidh} x {vidw} by {vidchannels} channels")
 outputType = "edges"
 while True:
     # Capture frame-by-frame
@@ -26,6 +30,7 @@ while True:
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     #gray_filtered = cv2.bilateralFilter(gray, 7, 50, 50)
     edges = cv2.Canny(gray, 60, 120)
+    blank_image = np.zeros((vidh,vidw,3), np.uint8)
     output = 0
     if (outputType == "edges"):
         output = cv2.cvtColor(edges, cv2.COLOR_GRAY2BGR)
@@ -33,6 +38,8 @@ while True:
         output = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
     elif (outputType == "frame"):
         output = frame
+    elif (outputType == "blank"):
+        output = blank_image
     
     faces = faceCascade.detectMultiScale(gray,
                                          scaleFactor=1.1,
@@ -59,5 +66,7 @@ while True:
         outputType="gray"
     elif keyIn == ord('3'):
         outputType="frame"
+    elif keyIn == ord('4'):
+        outputType="blank"
 video_capture.release()
 cv2.destroyAllWindows()
