@@ -1,12 +1,11 @@
+
 import cv2
 import os
 import numpy as np
 #cascPath = os.path.dirname(
 #    cv2.__file__) + "/data/haarcascade_frontalface_alt2.xml"
-cascPath = os.path.dirname(
-    cv2.__file__) + "/data/haarcascade_frontalface_alt2.xml"
-cascPathEyes = os.path.dirname(
-    cv2.__file__) + "/data/haarcascade_eye_tree_eyeglasses.xml"
+cascPath = os.path.dirname(__file__)+"/data/haarcascade_frontalface_alt2.xml"
+cascPathEyes = os.path.dirname(__file__)+"/data/haarcascade_eye_tree_eyeglasses.xml"
 
 faceCascade = cv2.CascadeClassifier(cascPath)
 eyesCascade = cv2.CascadeClassifier(cascPathEyes)
@@ -34,7 +33,7 @@ while True:
     output = 0
     if (outputType == "edges"):
         output = cv2.cvtColor(edges, cv2.COLOR_GRAY2BGR)
-    if (outputType == "gray"):
+    elif (outputType == "gray"):
         output = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
     elif (outputType == "frame"):
         output = frame
